@@ -6,10 +6,14 @@
      <router-link to="/alive">Go to keep-alive</router-link>
      <router-link to="/router/lixn">Go to router1</router-link>
      <router-link to="/router/yushuai">Go to router2</router-link>
+     <router-link :to="{ name: 'RouterDemo', params: { id: 'lixn' }}">router1 for name</router-link>
      <router-link to="/haha">Not Find</router-link>
      <hr />
     <!-- 路由显示位置 -->
-    <router-view/>
+    <keep-alive>
+      <router-view/>
+    </keep-alive>
+    
   </div>
 </template>
 

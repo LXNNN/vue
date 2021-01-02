@@ -28,6 +28,28 @@
       <baseAreatext></baseAreatext>
       <div>--------------------------监听根元素原生事件--------------------------</div>
       <child @click.native="onClick"></child>
+      <div>--------------------------插槽1--------------------------</div>
+      <SlotDemo>
+        <!-- Something bad happened. -->
+        <template v-slot:header="{ slotDemo }">
+          <h1>Here might be a page title</h1>
+          <h2>{{slotDemo}}</h2>
+        </template>
+
+        <p>A paragraph for the main content.</p>
+        <p>And another one.</p>
+
+        <template #footer>
+          <p>Here's some contact info</p>
+        </template>
+      </SlotDemo>
+      <div>--------------------------插槽2--------------------------</div>
+      <SlotDemo2>
+        <template #todo="{ todo }">
+          <span v-if="todo.isComplete">✓</span>
+          {{ todo.text }}
+        </template>
+      </SlotDemo2>
   </div>
 </template>
 
@@ -35,6 +57,8 @@
 import Vue from 'vue'
 import axios from 'axios'
 import CompTest from './CompTest'
+import SlotDemo from './SlotDemo'
+import SlotDemo2 from './SlotDemo2'
 
 Vue.component('child', {
   template: '<button>click me</button>'
@@ -93,6 +117,7 @@ export default {
     }
   },
   mounted () {
+    // alert(1)
     // console.log('城市名->',this.$store.state.city)
     // console.log('姓名->',this.$store.state.name)
     // this.$store.commit("setName", 'Lixn')
@@ -102,6 +127,15 @@ export default {
       console.log(err)
     })
   },
+  // beforeDestroy () {
+  //     alert("销毁")
+  // },
+  // activated () {
+  //     alert("你来了") 
+  // },
+  // deactivated () {
+  //   alert("你走了")
+  // },
   methods: {
     changeName: function () {
       this.lastName = '改变了';
@@ -129,7 +163,9 @@ export default {
     }
   },
   components: {
-    CompTest
+    CompTest,
+    SlotDemo,
+    SlotDemo2
   }
 }
 </script>
